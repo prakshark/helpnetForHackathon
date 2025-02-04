@@ -291,3 +291,20 @@ document.addEventListener("DOMContentLoaded", () => {
         doubtMessagesDiv.appendChild(messageElement);
     }
 });
+
+document.getElementById("toggleDoubtBtn").addEventListener("click", function () {
+    const doubtContainer = document.getElementById("askDoubtContainer");
+    if (doubtContainer.style.display === "none" || doubtContainer.style.display === "") {
+        doubtContainer.style.display = "block";
+    } else {
+        doubtContainer.style.display = "none";
+    }
+});
+
+document.getElementById("toggleDoubtBtn").addEventListener("click", function () {
+    document.getElementById("askDoubtContainer").style.display = "block";
+});
+
+document.getElementById("closeDoubtBtn").addEventListener("click", function () {
+    document.getElementById("askDoubtContainer").style.display = "none";
+});

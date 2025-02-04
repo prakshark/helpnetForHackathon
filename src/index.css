@@ -190,7 +190,6 @@ button:hover {
     font-size: 24px;
 }
 
-
 /* Ask a Doubt Section */
 #askDoubtContainer {
     background: black;
@@ -201,12 +200,15 @@ button:hover {
     color: white;
     box-shadow: 0 0 10px cyan;
     /* position: absolute; */
+    display: none; /* Hide initially */
+    position: fixed;
     bottom: 20px;
-    left: 0px;
+    left: 70px;
+    z-index: 1000;
 }
 
 #doubtInput {
-    width: 100%;
+    width: 85%;
     height: 60px;
     border: 2px solid neon-green;
     background: black;
@@ -242,5 +244,20 @@ button:hover {
     overflow: hidden; /* Prevents scrolling */
     text-align: left;
     margin-top: 10px;
+    color: white;
+}
+
+/* Close button for doubt container */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
     color: white;
 }
