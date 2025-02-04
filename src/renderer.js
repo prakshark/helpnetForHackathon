@@ -254,62 +254,40 @@ function isImageFile(filePath) {
     return ['.jpg', '.jpeg', '.png', '.gif', '.bmp'].includes(ext);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const askDoubtBtn = document.getElementById('askDoubtBtn');
-    const doubtModal = document.getElementById('doubtModal');
-    const closeBtn = document.querySelector('.close');
-    const sendDoubtBtn = document.getElementById('sendDoubtBtn');
-    const doubtInput = document.getElementById('doubtInput');
-    const doubtMessagesDiv = document.getElementById('doubtMessagesDiv');  // Get the message div
+document.addEventListener("DOMContentLoaded", () => {
+    const sendDoubtBtn = document.getElementById("sendDoubtBtn");
+    const doubtInput = document.getElementById("doubtInput");
+    const doubtMessagesDiv = document.getElementById("doubtMessagesDiv");
 
-    // Show the modal when "Ask a Doubt" button is clicked
-    askDoubtBtn.addEventListener('click', () => {
-        doubtModal.style.display = 'block';
-    });
+    sendDoubtBtn.addEventListener("click", async () => {
+        const question = doubtInput.value.trim();
+        if (!question) return;
 
-    // Close the modal when the close button (X) is clicked
-    closeBtn.addEventListener('click', () => {
-        doubtModal.style.display = 'none';
-    });
+        // Display user question
+        displayDoubtMessage(`You: ${question}`);
 
-    // Close modal when clicking outside the content
-    window.addEventListener('click', (event) => {
-        if (event.target === doubtModal) {
-            doubtModal.style.display = 'none';
-        }
-    });
+        // Fetch response from API
+        try {
+            const response = await fetch(`https://doji-stage.azurewebsites.net/api/emer/?query=${encodeURIComponent(question)}`);
+            const data = await response.json();
 
-    // Handle sending the doubt
-    sendDoubtBtn.addEventListener('click', async () => {
-        const userQuery = doubtInput.value.trim();
-        if (userQuery) {
-            displayDoubtMessage(`You: ${userQuery}`); // Display user's question
-            doubtInput.value = ''; // Clear input field
-
-            try {
-                const apiUrl = `https://doji-stage.azurewebsites.net/api/emer/?query=${encodeURIComponent(userQuery)}`;
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const data = await response.json();
-                const apiResponse = data.response || 'No response received.';
-                displayDoubtMessage(`Bot: ${apiResponse}`); // Display API response
-            } catch (error) {
-                console.error('Fetch error:', error);
-                displayDoubtMessage('Bot: An error occurred while fetching the response.');
+            if (data.response) {
+                displayDoubtMessage(`Bot: ${data.response}`);
+            } else {
+                displayDoubtMessage("Bot: Sorry, I couldn't fetch an answer.");
             }
-        } else {
-            alert('Please enter a doubt before sending.');
+        } catch (error) {
+            console.error("Error fetching answer:", error);
+            displayDoubtMessage("Bot: An error occurred. Please try again.");
         }
+
+        // Clear input field
+        doubtInput.value = "";
     });
 
-    // Function to display messages
     function displayDoubtMessage(message) {
-        const messageElement = document.createElement('p');
+        const messageElement = document.createElement("p");
         messageElement.textContent = message;
         doubtMessagesDiv.appendChild(messageElement);
     }
 });
-
-

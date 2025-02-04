@@ -61,19 +61,19 @@
     </div>
   </div>
 
-<!-- Popup Modal -->
-<div id="doubtModal" class="modal" style="margin-top: 10px;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <textarea id="doubtInput" placeholder="Type your doubt here..."></textarea>
-        <button id="sendDoubtBtn">Send</button>
-        <div id="doubtMessagesDiv"></div>  <!-- This will hold the messages -->
+
+    <div id="askDoubtContainer">
+      <h3>Ask a Doubt</h3>
+      <textarea id="doubtInput" placeholder="Type your question here..."></textarea>
+      <button id="sendDoubtBtn">Send</button>
+      <div id="doubtMessagesDiv"></div>
     </div>
-</div>
+
+    <!-- Map container -->
+    <div id="map" style="height: 500px; width: 100%; margin-top: 20px;"></div>
   
 
-  <!-- Map container -->
-  <div id="map" style="height: 500px; width: 100%; margin-top: 20px;"></div>
+
 
   <!-- Include Leaflet.js JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

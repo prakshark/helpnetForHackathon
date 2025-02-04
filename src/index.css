@@ -190,3 +190,57 @@ button:hover {
     font-size: 24px;
 }
 
+
+/* Ask a Doubt Section */
+#askDoubtContainer {
+    background: black;
+    border: 2px solid cyan;
+    padding: 15px;
+    border-radius: 10px;
+    width: 350px;
+    color: white;
+    box-shadow: 0 0 10px cyan;
+    /* position: absolute; */
+    bottom: 20px;
+    left: 0px;
+}
+
+#doubtInput {
+    width: 100%;
+    height: 60px;
+    border: 2px solid neon-green;
+    background: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#sendDoubtBtn {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#sendDoubtBtn:hover {
+    background: neon-green;
+}
+
+/* Messages Box */
+#doubtMessagesDiv {
+    height: 150px;
+    background: black;
+    border: 2px solid neon-green;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: hidden; /* Prevents scrolling */
+    text-align: left;
+    margin-top: 10px;
+    color: white;
+}
