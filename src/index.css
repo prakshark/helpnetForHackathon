@@ -1,0 +1,192 @@
+/* General body styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000; /* Black background */
+    color: #39ff14; /* Neon green text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Headings */
+h1, h3 {
+    color: #00ffff; /* Neon cyan */
+    text-shadow: 0 0 8px #00ffff;
+}
+
+/* Input fields */
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #222222; /* Dark grey */
+    color: #39ff14; /* Neon green */
+    outline: none;
+    box-shadow: 0 0 5px #39ff14;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a1a1a; /* Dark grey */
+    color: #00ffff; /* Neon cyan */
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #39ff14;
+}
+
+/* Map container */
+#map {
+    border: 2px solid #39ff14; /* Neon green border */
+    box-shadow: 0 0 10px #00ffff;
+    margin-top: 20px;
+}
+
+/* Messages container */
+#messages {
+    width: 100%; /* Full width */
+    height: 100px; /* Fixed height */
+    overflow-y: auto; /* Enable scrolling if messages overflow */
+    background-color: #1a1a1a; /* Black background for the theme */
+    color: #00ff00; /* Neon green text */
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+
+/* Safe list */
+#safeList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#safeList li {
+    background-color: #111111;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #39ff14;
+}
+
+/* Survivors count */
+#survivors {
+    color: #ff00ff; /* Neon pink */
+    font-size: 24px;
+    text-shadow: 0 0 8px #ff00ff;
+}
+
+/* Flex container for buttons */
+.buttons-container {
+    display: flex;
+    justify-content: center; /* Center-align buttons */
+    gap: 10px; /* Space between buttons */
+    margin: 10px 0;
+}
+
+/* Flex container for check-in and survivors online */
+.status-container {
+    width: 70vw;
+    display: flex;
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center; /* Vertically align items */
+    margin: 10px 30px;
+    padding: 10px;
+    border: 1px solid #00ff00; /* Optional: for visual clarity */
+    border-radius: 5px;
+    background-color: #1a1a1a; /* Match the black and neon theme */
+}
+.status-container h3 {
+    margin: 0;
+    color: #00ff00; /* Neon green for the theme */
+}
+
+#checkInSafe{
+    padding-right: 20px;
+}
+
+#survivors{
+    padding-left: 20px;
+}
+
+/* Container for Messages and Check-in Safe list */
+#content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px; /* Space between the two sections */
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Messages Section */
+#messagesContainer {
+    flex: 3; /* 60% width */
+    background-color: #1a1a1a; /* Black background for the theme */
+    color: #00ff00; /* Neon green text */
+    border: 1px solid #00ff00; /* Neon border */
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 100px; /* Fixed height */
+}
+
+/* Safe List Section */
+#safeListContainer {
+    flex: 2; /* 40% width */
+    background-color: #1a1a1a; /* Black background for the theme */
+    color: #00ff00; /* Neon green text */
+    border: 1px solid #00ff00; /* Neon border */
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 100px; /* Match height with messages section */
+}
+
+/* Hide popup initially */
+.hidden {
+    display: none;
+}
+
+/* Popup styling */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    border: 2px solid neon green;
+    padding: 20px;
+    z-index: 1000;
+    color: neon green;
+    box-shadow: 0 0 15px neon green;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+

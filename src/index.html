@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelpNet</title>
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Include Leaflet.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>HelpNet: Community Disaster Relief</h1>
+
+  <!-- Input field to type messages -->
+  <input type="text" id="messageInput" placeholder="Type your message here" />
+  <div class="buttons-container">
+    <button id="sendMessageButton">Send Message</button>
+    <button id="sos">SOS</button>
+    <button id="sendFileButton">Send File</button>
+  </div>
+
+    <!-- Add a section for Check-in Safe -->
+  <!-- <div>
+    <h3>Check-in Safe:</h3>
+    <button id="checkInSafe">Check-in</button>
+  </div>
+  <ul id="safeList"></ul> 
+
+  <div>
+    <h3>Survivors Online: </h3>
+    <h3 id="survivors">0</h3>
+  </div> -->
+
+  <div class="status-container">
+    <button id="checkInSafe">Check-in Safe</button>
+    <div>
+        <h3>Survivors Online: </h3>
+        <h3 id="survivors">0</h3>
+    </div>
+</div>
+
+
+    <!-- Add this to your index.html -->
+  <!-- <h3>Share a file:</h3>
+  <input type="file" id="fileInput" /> -->
+  <!-- <button id="sendFileButton">Send File</button> -->
+
+
+
+  <div id="content">
+    <!-- Messages Section -->
+    <div id="messagesContainer">
+      <div id="messages"></div> <!-- Display messages here -->
+    </div>
+  
+    <!-- Safety Status Display -->
+    <div id="safeListContainer">
+      <h4>Checked-in Safe:</h4>
+      <ul id="safeList"></ul> <!-- List of safe users -->
+    </div>
+  </div>
+
+<!-- Ask a Doubt Button -->
+<button id="askDoubtBtn">Ask a Doubt</button>
+
+<!-- Popup Modal -->
+<div id="doubtModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Ask a Doubt</h2>
+        <textarea id="doubtInput" placeholder="Type your doubt here..."></textarea>
+        <button id="sendDoubtBtn">Send</button>
+        <div id="doubtMessagesDiv"></div>  <!-- This will hold the messages -->
+    </div>
+</div>
+  
+
+  <!-- Map container -->
+  <div id="map" style="height: 500px; width: 100%; margin-top: 20px;"></div>
+
+  <!-- Include Leaflet.js JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Your renderer.js -->
+  <script src="renderer.js"></script>
+</body>
+</html>
+
