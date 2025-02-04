@@ -261,3 +261,16 @@ button:hover {
 .close-btn:hover {
     color: white;
 }
+
+/* Messages Box */
+#doubtMessagesDiv {
+    height: 150px;
+    background: black;
+    border: 2px solid #39ff14; /* Neon green */
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto; /* Enables vertical scrolling */
+    text-align: left;
+    margin-top: 10px;
+    color: white;
+}

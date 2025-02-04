@@ -289,6 +289,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageElement = document.createElement("p");
         messageElement.textContent = message;
         doubtMessagesDiv.appendChild(messageElement);
+
+        // Auto-scroll to the latest message
+        document.getElementById("doubtMessagesDiv").scrollTop = document.getElementById("doubtMessagesDiv").scrollHeight;
     }
 });
 
