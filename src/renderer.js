@@ -20,7 +20,7 @@ const checkInSafeButton = document.getElementById('checkInSafe');
 const safeList = document.getElementById('safeList');
 
 // Initialize map (Leaflet)
-const map = L.map('map').setView([28.6139, 77.2089], 10); 
+const map = L.map('map').setView([28.6139, 77.2089], 10); // Default to Noida
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 let userLocation = null;
@@ -268,11 +268,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Fetch response from API
         try {
-            const response = "Working on it";
+            const response = await fetch(`https://doji-stage.azurewebsites.net/api/emer/?query=${encodeURIComponent(question)}`);
             const data = await response.json();
 
             if (data.response) {
-                displayDoubtMessage(`Working on it`);
+                displayDoubtMessage(`Bot: ${data.response}`);
             } else {
                 displayDoubtMessage("Bot: Sorry, I couldn't fetch an answer.");
             }
