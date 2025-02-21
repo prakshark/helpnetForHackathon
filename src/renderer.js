@@ -20,7 +20,7 @@ const checkInSafeButton = document.getElementById('checkInSafe');
 const safeList = document.getElementById('safeList');
 
 // Initialize map (Leaflet)
-const map = L.map('map').setView([28.6139, 77.2089], 10); // Default to Noida
+const map = L.map('map').setView([28.737324, 77.090981], 10); 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 let userLocation = null;
@@ -168,14 +168,14 @@ try {
             },
             (err) => {
                 console.error('Error getting geolocation:', err);
-                const fallbackLocation = { lat: 28.6139, lng: 77.2089 };
+                const fallbackLocation = { lat: 28.737324, lng: 77.090981  };
                 userLocation = fallbackLocation;
                 L.marker([fallbackLocation.lat, fallbackLocation.lng]).addTo(map).bindPopup('Here').openPopup();
             },
             { timeout: 10000, enableHighAccuracy: true, maximumAge: 0 }
         );
     } else {
-        const fallbackLocation = { lat: 28.6139, lng: 77.2089 };
+        const fallbackLocation = { lat: 28.737324, lng: 77.090981  };
         userLocation = fallbackLocation;
         L.marker([fallbackLocation.lat, fallbackLocation.lng]).addTo(map).bindPopup('Here').openPopup();
     }
@@ -311,3 +311,68 @@ document.getElementById("toggleDoubtBtn").addEventListener("click", function () 
 document.getElementById("closeDoubtBtn").addEventListener("click", function () {
     document.getElementById("askDoubtContainer").style.display = "none";
 });
+
+// Select the button
+const locationPrivacyBtn = document.getElementById("locationPrivacyBtn");
+
+// Variable to track marker state
+let isCircleMarker = false; // Default: Arrow marker
+let userMarker = null;
+userLocation = null; // Stores the current location
+
+// Function to update the marker on the map
+function updateLocationMarker(lat, lng) {
+    if (userMarker) {
+        map.removeLayer(userMarker); // Remove the previous marker
+    }
+
+    if (isCircleMarker) {
+        // Create a small circle marker
+        userMarker = L.circleMarker([lat, lng], {
+            radius: 20,
+            color: "blue",
+            fillColor: "blue",
+            fillOpacity: 0.8,
+        }).addTo(map);
+    } else {
+        // Create an arrow marker
+        userMarker = L.marker([lat, lng], {
+            icon: L.divIcon({
+                className: "custom-arrow-icon",
+                html: ".",
+                iconSize: [0, 0],
+            }),
+        }).addTo(map);
+    }
+}
+
+// Button click event - Toggles between Arrow and Circle
+locationPrivacyBtn.addEventListener("click", () => {
+    isCircleMarker = !isCircleMarker; // Toggle marker type
+    if (userLocation) {
+        updateLocationMarker(userLocation.lat, userLocation.lng);
+    }
+});
+
+// Get the user's location
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            // Store the user's location
+            userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+            updateLocationMarker(userLocation.lat, userLocation.lng);
+        },
+        (error) => {
+            console.error("Geolocation error:", error);
+            // Default to Delhi if geolocation fails
+            userLocation = { lat: 28.737324, lng: 77.090981 };
+            updateLocationMarker(userLocation.lat, userLocation.lng);
+        },
+        { timeout: 10000, enableHighAccuracy: true, maximumAge: 0 }
+    );
+} else {
+    console.error("Geolocation is not supported by this browser.");
+    // Default to Delhi if geolocation is not supported
+    userLocation = { lat: 28.737324, lng: 77.090981 };
+    updateLocationMarker(userLocation.lat, userLocation.lng);
+}
