@@ -45,11 +45,30 @@ function loadNSFWHashes() {
     }
 }
 
+const explicitWords = [
+    "abuse", "adult", "anal", "arse", "ass", "bastard", "bitch", "blowjob", "boobs", "bollock", 
+    "boner", "brothel", "bugger", "butt", "clit", "cock", "coon", "crap", "cum", "cunt", "damn", 
+    "dick", "dildo", "dipshit", "doggy", "douche", "dumbass", "dyke", "ejaculate", "erotic", "fag", 
+    "faggot", "fetish", "fuck", "fucker", "fucking", "gangbang", "gay", "handjob", "hardcore", 
+    "hentai", "homo", "hooker", "horny", "jackass", "jackoff", "jizz", "kinky", "lesbian", "lust", 
+    "masturbate", "milf", "motherfucker", "naked", "nazi", "nipple", "nude", "orgasm", "orgy", 
+    "pecker", "pedophile", "penis", "piss", "playboy", "porn", "pornhub", "porno", "pornography", 
+    "pussy", "rape", "rapist", "rectum", "redtube", "rimjob", "scat", "scrotum", "sex", "sexy", 
+    "shit", "slut", "sperm", "spunk", "stripper", "suck", "testicle", "threesome", "tit", "tits", 
+    "topless", "tosser", "twat", "vagina", "viagra", "vibrator", "vulva", "wanker", "whore", "xhamster", 
+    "xnxx", "xvideos", "xxx", "youporn", "zoophile", "zoophilia"
+];
+
+
 loadNSFWHashes();
 
 async function isNSFWImage(imageBuffer) {
     const hash = hashBuffer(imageBuffer);
     return nsfwImageHashes.has(hash);
+}
+
+function containsExplicitWords(message) {
+    return explicitWords.some(word => message.toLowerCase().includes(word));
 }
 
 // Create a custom check-in input dialog
@@ -141,6 +160,10 @@ try {
     sendMessageButton.addEventListener('click', () => {
         const message = messageInput.value.trim();
         if (message === '') return;
+        if (containsExplicitWords(message)) {
+            alert("Message contains explicit content. Please modify your message.");
+            return;
+        }
 
         console.log(`Sending message to peers: ${message}`);
         displayMessage(`You: ${message}`);
