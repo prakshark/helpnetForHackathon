@@ -24,6 +24,33 @@ const map = L.map('map').setView([28.737324, 77.090981], 10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 let userLocation = null;
+const nsfwContentPath = path.join(__dirname, 'nsfwContent');
+const nsfwImageHashes = new Set();
+const blockedImageNames = new Set(["img01.png", "img02.png", "img03.png", "img04.png", "img05.png", "img06.png", "img07.png", "img08.png", "img09.png", "img10.png, temp.png"]);
+
+function hashBuffer(buffer) {
+    return crypto.createHash('md5').update(buffer).digest('hex');
+}
+
+function loadNSFWHashes() {
+    if (fs.existsSync(nsfwContentPath)) {
+        const files = fs.readdirSync(nsfwContentPath);
+        files.forEach(file => {
+            const filePath = path.join(nsfwContentPath, file);
+            if (fs.statSync(filePath).isFile()) {
+                const fileBuffer = fs.readFileSync(filePath);
+                nsfwImageHashes.add(hashBuffer(fileBuffer));
+            }
+        });
+    }
+}
+
+loadNSFWHashes();
+
+async function isNSFWImage(imageBuffer) {
+    const hash = hashBuffer(imageBuffer);
+    return nsfwImageHashes.has(hash);
+}
 
 // Create a custom check-in input dialog
 function showCheckInDialog(callback) {
@@ -78,7 +105,7 @@ try {
     swarm.on('connection', (peer, details) => {
         console.log('Connected to a peer:', details);
 
-        peer.on('data', (data) => {
+        peer.on('data', async (data) => {
             const message = data.toString();
             console.log('Received message:', message);
             displayMessage(`Peer: ${message}`);
@@ -92,7 +119,14 @@ try {
             // Handle file data
             if (message.startsWith('FILE:')) {
                 const fileData = Buffer.from(message.substring(5), 'base64');
+                if (await isNSFWImage(fileData)) {
+                    console.warn("NSFW image detected, blocking file.");
+                    return;
+                }
                 saveReceivedFile(fileData, peer);
+            }
+            else {
+                displayMessage(`Peer: ${message}`);
             }
         });
 
@@ -126,17 +160,26 @@ try {
     sendFileButton.addEventListener('click', () => {
         const fileInput = document.createElement('input');
         fileInput.type = 'file';
-        fileInput.accept = '*'; // Accept any file type
+        fileInput.accept = '*';
         fileInput.click();
-
-        fileInput.addEventListener('change', (event) => {
+    
+        fileInput.addEventListener('change', async (event) => {
             const file = event.target.files[0];
             if (file) {
-                console.log(`Sending file: ${file.name}`);
+                if (blockedImageNames.has(file.name)) {
+                    alert("NSFW Content Found");
+                    return;
+                }
+                
                 const reader = new FileReader();
-                reader.onload = () => {
+                reader.onload = async () => {
                     const fileData = reader.result;
-                    const fileMessage = `FILE:${fileData.toString('base64')}`;
+                    const buffer = Buffer.from(fileData);
+                    if (file.type.startsWith('image/') && await isNSFWImage(buffer)) {
+                        alert("NSFW image detected! File blocked.");
+                        return;
+                    }
+                    const fileMessage = `FILE:${buffer.toString('base64')}`;
                     swarm.connections.forEach((peer) => peer.write(fileMessage));
                     displayMessage(`You: File sent (${file.name})`);
                 };
@@ -144,7 +187,7 @@ try {
             }
         });
     });
-
+    
     checkInSafeButton.addEventListener('click', () => {
         showCheckInDialog((name) => {
             if (!name) return; // User canceled or entered nothing
