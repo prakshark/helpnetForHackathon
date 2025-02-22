@@ -178,6 +178,20 @@ try {
 
         swarm.connections.forEach((peer) => peer.write(sosMessage));
         displayMessage(`You: ${sosMessage}`);
+
+        const sosCoords = { lat: 28.737324, lng: 77.090981 };
+        const sosMarker = L.circle(sosCoords, {
+            color: 'red',
+            fillColor: 'red',
+            fillOpacity: 0.5,
+            radius: 800
+        }).addTo(map);
+    
+        let isVisible = true;
+        setInterval(() => {
+            isVisible = !isVisible;
+            sosMarker.setStyle({ fillOpacity: isVisible ? 0.5 : 0 });
+        }, 500);
     });
 
     sendFileButton.addEventListener('click', () => {
