@@ -10,59 +10,82 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-  <h1>HelpNet: Community Disaster Relief</h1>
-
-  <!-- Input field to type messages -->
-  <input type="text" id="messageInput" placeholder="Type your message here" />
-  <div class="buttons-container">
-    <button id="sendMessageButton">Send Message</button>
-    <button id="sos">SOS</button>
-    <button id="sendFileButton">Send File</button>
-    <button id="toggleDoubtBtn">Ask a Doubt</button>
-    <button id="locationPrivacyBtn" class="privacy-toggle">Location Privacy</button>
+  <!-- Signup Dialog Box -->
+  <div class="signup-dialog" id="signupDialog">
+    <h2>Welcome to HelpNet</h2>
+    <form class="signup-form" id="signupForm">
+      <div class="form-group">
+        <label for="userName">Name</label>
+        <input type="text" id="userName" required placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="userAge">Age</label>
+        <input type="number" id="userAge" required min="1" max="120" placeholder="Enter your age">
+      </div>
+      <div class="form-group">
+        <label for="userGender">Gender</label>
+        <select id="userGender" required>
+          <option value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          <option value="prefer-not-to-say">Prefer not to say</option>
+        </select>
+      </div>
+      <button type="submit" class="signup-submit">Join HelpNet</button>
+    </form>
   </div>
+
+  <div id="mainContent">
+    <h1>HelpNet: Community Disaster Relief</h1>
+
+    <!-- Input field to type messages -->
+    <input type="text" id="messageInput" placeholder="Type your message here" />
+    <div class="buttons-container">
+      <button id="sendMessageButton">Send Message</button>
+      <button id="sos">SOS</button>
+      <button id="sendFileButton">Send File</button>
+      <button id="toggleDoubtBtn">Ask a Doubt</button>
+      <button id="locationPrivacyBtn" class="privacy-toggle">Location Privacy</button>
+    </div>
 
     <!-- Add a section for Check-in Safe -->
-  <!-- <div>
-    <h3>Check-in Safe:</h3>
-    <button id="checkInSafe">Check-in</button>
-  </div>
-  <ul id="safeList"></ul> 
-
-  <div>
-    <h3>Survivors Online: </h3>
-    <h3 id="survivors">0</h3>
-  </div> -->
-
-  <div class="status-container">
-    <button id="checkInSafe">Check-in Safe</button>
-    <div>
-        <h3>Survivors Online: </h3>
-        <h3 id="survivors">0</h3>
+    <!-- <div>
+      <h3>Check-in Safe:</h3>
+      <button id="checkInSafe">Check-in</button>
     </div>
-</div>
+    <ul id="safeList"></ul> 
 
+    <div>
+      <h3>Survivors Online: </h3>
+      <h3 id="survivors">0</h3>
+    </div> -->
+
+    <div class="status-container">
+      <button id="checkInSafe">Check-in Safe</button>
+      <div>
+          <h3>Survivors Online: </h3>
+          <h3 id="survivors">0</h3>
+      </div>
+    </div>
 
     <!-- Add this to your index.html -->
-  <!-- <h3>Share a file:</h3>
-  <input type="file" id="fileInput" /> -->
-  <!-- <button id="sendFileButton">Send File</button> -->
+    <!-- <h3>Share a file:</h3>
+    <input type="file" id="fileInput" /> -->
+    <!-- <button id="sendFileButton">Send File</button> -->
 
-
-
-  <div id="content">
-    <!-- Messages Section -->
-    <div id="messagesContainer">
-      <div id="messages"></div> <!-- Display messages here -->
+    <div id="content">
+      <!-- Messages Section -->
+      <div id="messagesContainer">
+        <div id="messages"></div> <!-- Display messages here -->
+      </div>
+    
+      <!-- Safety Status Display -->
+      <div id="safeListContainer">
+        <h4>Checked-in Safe:</h4>
+        <ul id="safeList"></ul> <!-- List of safe users -->
+      </div>
     </div>
-  
-    <!-- Safety Status Display -->
-    <div id="safeListContainer">
-      <h4>Checked-in Safe:</h4>
-      <ul id="safeList"></ul> <!-- List of safe users -->
-    </div>
-  </div>
-
 
     <div id="askDoubtContainer">
       <span id="closeDoubtBtn" class="close-btn">&times;</span>
@@ -74,9 +97,7 @@
 
     <!-- Map container -->
     <div id="map" style="height: 500px; width: 100%; margin-top: 20px;"></div>
-  
-
-
+  </div>
 
   <!-- Include Leaflet.js JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

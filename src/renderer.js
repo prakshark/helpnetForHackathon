@@ -1,6 +1,6 @@
 const Hyperswarm = require('hyperswarm');
 const crypto = require('crypto');
-const fs = require('fs');
+const fs = require('fs'); 
 const path = require('path');
 
 // Create a new Hyperswarm instance
@@ -18,6 +18,51 @@ const sendFileButton = document.getElementById('sendFileButton');
 const survivorsCount = document.getElementById('survivors');
 const checkInSafeButton = document.getElementById('checkInSafe');
 const safeList = document.getElementById('safeList');
+const signupDialog = document.getElementById('signupDialog');
+const signupForm = document.getElementById('signupForm');
+const mainContent = document.getElementById('mainContent');
+
+let currentUserName = '';
+
+// Show signup dialog on startup
+document.addEventListener('DOMContentLoaded', () => {
+    // Force show signup dialog and blur main content
+    signupDialog.style.display = 'block';
+    mainContent.classList.add('blur-background');
+    
+    // Disable all interactive elements in main content
+    const interactiveElements = mainContent.querySelectorAll('button, input, select, textarea');
+    interactiveElements.forEach(element => {
+        element.disabled = true;
+    });
+});
+
+// Handle signup form submission
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('userName').value;
+    const age = document.getElementById('userAge').value;
+    const gender = document.getElementById('userGender').value;
+
+    if (!name || !age || !gender) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    // Save user data and store current user name
+    currentUserName = name;
+    localStorage.setItem('userData', JSON.stringify({ name, age, gender }));
+    
+    // Hide signup dialog and remove blur
+    signupDialog.style.display = 'none';
+    mainContent.classList.remove('blur-background');
+    
+    // Re-enable all interactive elements in main content
+    const interactiveElements = mainContent.querySelectorAll('button, input, select, textarea');
+    interactiveElements.forEach(element => {
+        element.disabled = false;
+    });
+});
 
 // Initialize map (Leaflet)
 const map = L.map('map').setView([28.737324, 77.090981], 10); 
@@ -178,7 +223,6 @@ try {
 
         swarm.connections.forEach((peer) => peer.write(sosMessage));
         displayMessage(`You: ${sosMessage}`);
-
         const sosCoords = { lat: 28.737324, lng: 77.090981 };
         const sosMarker = L.circle(sosCoords, {
             color: 'red',
