@@ -5,14 +5,16 @@ In times of disaster, reliable communication and coordination are critical. **He
 
 ---
 
-## 🔧 Features
+## 🛠 Features
 - **Real-Time Messaging**: Connect with peers instantly.
-- **SOS Alerts**: Broadcast urgent messages for immediate assistance.
+- **SOS Alerts**: Broadcast urgent messages for immediate assistance. Clicking the SOS button toggles a red blinking circle at the designated location for better visibility.
 - **Safety Check-Ins**: Confirm your safety and view a list of checked-in individuals.
 - **File Sharing**: Exchange important documents, images, or instructions effortlessly.
 - **Location Sharing**: View the real-time location of peers on a map for better coordination.
 - **AI and LLM-Powered Chatbot**: Get instant answers to legal and disaster-related queries.
 - **Offline-First Design**: Operates without reliance on centralized servers.
+- **Explicit Text Filtering**: Prevents inappropriate or offensive messages from being shared.
+- **NSFW Image Filtering**: Blocks explicit or inappropriate images to maintain a safe environment.
 
 ---
 
@@ -30,6 +32,7 @@ In times of disaster, reliable communication and coordination are critical. **He
 - **Mapping**: Leaflet.js for location visualization.
 - **AI Chatbot**: Integrated with LLM-based API for answering queries.
 - **Framework**: [Electron.js](https://www.electronjs.org/) for cross-platform desktop applications.
+- **Explicit Content Filtering**: [NSFW.js](https://github.com/infinitered/nsfwjs) for detecting and blocking inappropriate images.
 
 ---
 
@@ -48,30 +51,22 @@ Click on the thumbnail to view the demo in action!
 
 ---
 
-## 📚 How to Run Locally
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/YourGitHubUsername/HelpNet.git
-   cd HelpNet
-   ```
+## 📚 How to Install and Run
 
-2. **Install Dependencies:**
-   Ensure you have Node.js installed, then run:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/prakshark/HelpNet.git
+cd HelpNet
 
-3. **Run the Application:**
-   ```bash
-   npm start
-   ```
+# Install Dependencies
+npm install
 
-4. **Package for Distribution:**
-   To generate an executable for your platform:
-   ```bash
-   npm run package
-   ```
-   The packaged app will appear in the `dist` folder.
+# Run the Application
+npm start
+
+# Package for Distribution
+npm run package
+```
+The packaged app will appear in the `dist` folder.
 
 ---
 
@@ -84,3 +79,4 @@ Click on the thumbnail to view the demo in action!
 
 ## 🏁 Conclusion
 HelpNet bridges the communication gap during crises, providing a reliable and intuitive platform for disaster response. With its decentralized architecture, AI-powered chatbot, and rich feature set, HelpNet empowers individuals to collaborate effectively, ensuring safety and support when it matters most.
+
